@@ -22,19 +22,24 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api', function(req, res) {
-  res.json({"guilds": client.guilds.size, "channels": client.channels.size, "users": client.users.size});
+  res.json({"guilds": client.guilds.cache.size, "channels": client.channels.cache.size, "users": client.users.cache.size});
 });
 
 app.get('/api/guilds', function(req, res) {
-  res.send(`${client.guilds.size}`);
+  res.send(`${client.guilds.cache.size}`);
 });
 
 app.get('/api/channels', function(req, res) {
-  res.send(`${client.channels.size}`);
+  res.send(`${client.channels.cache.size}`);
 });
 
 app.get('/api/users', function(req, res) {
-  res.send(`${client.users.size}`);
+  res.send(`${client.users.cache.size}`);
+});
+
+app.get('/api/testsend/:message', function(req, res) {
+  client.channels.cache.get('699271873279557652').send(`${req.params.message}`);
+  res.send(`sent '${req.params.message}'`)
 });
 
 app.listen();
@@ -54,7 +59,7 @@ function idleFun() {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
-  console.log(`Cabot has started, with ${client.users.size} total users, in ${client.channels.size} total channels of ${client.guilds.size} guilds`);
+  console.log(`Cabot has started, with ${client.users.cache.size} total users, in ${client.channels.cache.size} total channels of ${client.guilds.cache.size} guilds`);
 
   keepAlive();
 
@@ -63,7 +68,7 @@ client.on('ready', () => {
   client.user.setPresence({
     status: "idle",
     game: {
-      name: `${client.guilds.size} server${s}`,
+      name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
       url: config.url
     }
@@ -78,7 +83,7 @@ client.on("guildCreate", guild => {
   client.user.setPresence({
     status: "idle",
     game: {
-      name: `${client.guilds.size} server${s}`,
+      name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
       url: config.url
     }
@@ -92,7 +97,7 @@ client.on("guildDelete", guild => {
   client.user.setPresence({
     status: "idle",
     game: {
-      name: `${client.guilds.size} server${s}`,
+      name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
       url: config.url
     }
@@ -103,7 +108,7 @@ client.on("message", async message => {
   // Np botception
   if(message.author.bot) return;
   
-  if(message.isMemberMentioned(client.user)) {
+  if(message.mentions.has(client.user)) {
     message.channel.send('Prefix:' + config.prefix);
     return;
   }
@@ -213,6 +218,10 @@ client.on("message", async message => {
           "value": "Bans the mentioned user for the specified reason."
         },
         {
+          "name": "warn [@user] [reason]",
+          "value": "Warns the mentioned user for the specified reason."
+        },
+        {
           "name": "botnick [nickname]",
           "value": "Changes the bot's nickname on the server"
         }
@@ -300,6 +309,7 @@ client.on("message", async message => {
     await toban.ban(reason)
     .catch(error => message.reply(`I couldn't ban because of: ${error}`));
     message.channel.send(`${toban.user} has been banned by ${message.author} because: ${reason}`);
+    toban.send(`You have been banned by ${message.author} because: ${reason}`);
     
     message.delete().catch(O_o=>{});
     return
@@ -319,7 +329,24 @@ client.on("message", async message => {
     await tokick.kick(reason)
     .catch(error => message.reply(`I couldn't kick because of: ${error}`));
     message.channel.send(`${tokick.user} has been kicked by ${message.author} because: ${reason}`);
+    tokick.send(`You have been kicked by ${message.author} because: ${reason}`);
     
+    message.delete().catch(O_o=>{});
+    return
+  }
+
+  if (command === 'warn') {
+    if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Access denied.");
+
+    let towarn = message.mentions.members.first();
+
+    if (!towarn) return message.reply("Please mention a valid member of this server.");
+
+    let reason = args.slice(1).join(' ');
+    if (!reason) return message.reply("Please indicate a reason for the warn.");
+
+    message.channel.send(`${towarn.user} - ${message.author} warned you for: ${reason}`);
+    towarn.send(`${message.author} warned you for: ${reason}`);
     message.delete().catch(O_o=>{});
     return
   }
@@ -357,6 +384,7 @@ client.on("message", async message => {
     await sleep(14500);
     message.channel.send(data.rickroll[6], {tts: true});
     message.guild.members.get(client.user.id).setNickname("");
+    return
   }
 
   if (command === 'prefix') {
@@ -364,6 +392,7 @@ client.on("message", async message => {
     message.delete().catch(O_o=>{});
     config.prefix = args.join(" ");
     fs.writeFileSync('config.json', JSON.stringify(config));
+    return
   }
 
   else {
