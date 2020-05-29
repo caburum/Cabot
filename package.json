@@ -1,17 +1,25 @@
 {
   "name": "Cabot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple, but powerful Discord bot",
   "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.6.4",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CCreativeCND/Cabot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "discord.js": "^11.5.1",
-    "express": "^4.17.1",
-    "index.js": "0.0.3"
-  }
+  "bugs": {
+    "url": "https://github.com/CCreativeCND/Cabot/issues"
+  },
+  "homepage": "https://cabot.calum.gq"
 }
