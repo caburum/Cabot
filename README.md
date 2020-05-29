@@ -22,4 +22,4 @@ The default prefix for Cabot is `.`
 To see more about commands, run `.help` (normal) or `.help admin` (for server admins)
 
 ### API
-*The api is still being developed, but you can see it [here](https://cabot.calum.gq/api)*
+*The API is still being developed, but you can see it [here](https://cabot.calum.gq/api).*
