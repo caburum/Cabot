@@ -45,6 +45,11 @@ app.get('/api/testsend/:message', function(req, res) {
   res.send(`sent '${req.params.message}'`)
 });
 
+// 404
+app.use(function (req, res, next) {
+  res.status(404).sendFile(__dirname + '/404.html')
+})
+
 app.listen();
 // end website
 
