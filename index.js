@@ -3,9 +3,42 @@ const client = new Discord.Client();
 const fs = require('fs');
 const config = require("./config.json");
 const data = require("./data.json");
-const website = require('./website.js')
+//const website = require('./website.js')
 
 client.login(process.env.token);
+
+// website
+var express = require('express');
+var app = express();
+
+function keepAlive(){
+  app.listen(3000, ()=>{console.log("Server is Ready!")});
+}
+
+module.exports = keepAlive;
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/api', function(req, res) {
+  res.json({"guilds": client.guilds.size, "channels": client.channels.size, "users": client.users.size});
+});
+
+app.get('/api/guilds', function(req, res) {
+  res.send(`${client.guilds.size}`);
+});
+
+app.get('/api/channels', function(req, res) {
+  res.send(`${client.channels.size}`);
+});
+
+app.get('/api/users', function(req, res) {
+  res.send(`${client.users.size}`);
+});
+
+app.listen();
+// end website
 
 function randomInt(r) {
   return Math.floor((Math.random() * r))
@@ -22,6 +55,8 @@ function idleFun() {
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   console.log(`Cabot has started, with ${client.users.size} total users, in ${client.channels.size} total channels of ${client.guilds.size} guilds`);
+
+  keepAlive();
 
   // Shows how many servers bot is on
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
