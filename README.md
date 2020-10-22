@@ -19,8 +19,8 @@ Currently, it is still in development.
 *(as well as a few easter eggs)*
 
 ### Help
-The default prefix for Cabot is `.`
-To see more about commands, run `.help` (normal) or `.help admin` (for server admins)
+The default prefix for Cabot is `$`
+To see more about commands, run `$help`
 
 ### API
 *The API is still being developed, but you can see it [here](https://cabot.calum.gq/api).*
