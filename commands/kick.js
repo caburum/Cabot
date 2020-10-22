@@ -6,7 +6,7 @@ module.exports = {
   usage: '[user mention] [reason]',
   aliases: [],
   perms: 'Kick Members',
-	async execute(client, message, args, guildConf, guildConf) {
+	async execute(client, message, args, guildConf) {
 		if (!message.member.hasPermission("KICK_MEMBERS")) return message.reply("Permission Denied.");
 
     let tokick = message.mentions.members.first();

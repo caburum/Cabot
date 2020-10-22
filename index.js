@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const website = require('./functions/website.js')
+const website = require('./functions/website.js');
+const data = require("./botdata/about.json");
 
 // Command Handler
 const fs = require('fs');
@@ -42,7 +43,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   console.log(`Cabot has started, with ${client.users.cache.size} total users, in ${client.channels.cache.size} total channels of ${client.guilds.cache.size} guilds`);
 
-  keepAlive();
+  website();
 
   // Shows how many servers bot is on
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
@@ -51,7 +52,7 @@ client.on('ready', () => {
     game: {
       name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
-      url: config.url
+      url: data.url
     }
   });
   //client.user.setActivity(`on ${client.guilds.size} server${s}`);
@@ -66,7 +67,7 @@ client.on("guildCreate", guild => {
     game: {
       name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
-      url: config.url
+      url: data.url
     }
   });
 });
@@ -80,7 +81,7 @@ client.on("guildDelete", guild => {
     game: {
       name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
-      url: config.url
+      url: data.url
     }
   });
 });

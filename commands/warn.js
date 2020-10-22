@@ -1,4 +1,4 @@
-const log = require('../log.js');
+const log = require('../functions/log.js');
 
 module.exports = {
 	name: 'warn',
@@ -6,7 +6,7 @@ module.exports = {
   usage: '[user mention] [reason]',
   aliases: [],
   perms: 'Manage Messages',
-	async execute(client, message, args, guildConf, guildConf) {
+	async execute(client, message, args, guildConf) {
 		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Permission Denied.");
 
     let towarn = message.mentions.members.first();

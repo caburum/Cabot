@@ -5,10 +5,10 @@ function keepAlive(){
   app.listen(3000, ()=>{console.log("Server is Ready!")});
 }
 
-module.exports = keepAlive;
+module.exports = keepAlive
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/website/index.html');
 });
 
 app.get('/api', function(req, res) {
@@ -38,9 +38,7 @@ app.get('/api/testsend/:message', function(req, res) {
 
 // 404
 app.use(function (req, res, next) {
-  res.status(404).sendFile(__dirname + '/404.html')
+  res.status(404).sendFile(__dirname + '/website/404.html')
 })
 
 app.listen();
-
-module.exports = keepAlive

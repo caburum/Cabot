@@ -1,4 +1,4 @@
-const randomint = require('../functions/randomint.js');
+const randomint = require('../functions/randomInt.js');
 const replies = require("../botdata/8ball.json");
 
 module.exports = {

@@ -6,7 +6,7 @@ module.exports = {
   usage: '[user mention] [reason]',
   aliases: [],
   perms: 'Ban Members',
-	async execute(client, message, args, guildConf, guildConf) {
+	async execute(client, message, args, guildConf) {
 		if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply("Permission Denied.");
     
     let toban = message.mentions.members.first();
