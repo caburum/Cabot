@@ -29,10 +29,10 @@ const defaultSettings = {
   logchannel: "mod-logs"
 }
 client.modActions = new Enmap({
-    name: 'actions'
+  name: 'actions'
 });
 client.userProfiles = new Enmap({
-    name: 'userProfiles'
+  name: 'userProfiles'
 });
 
 function idleFun() {
@@ -96,7 +96,6 @@ client.on("message", async message => {
   }*/
 
   // Ignore any message that does not start with prefix
-  //if(message.content.indexOf(config.prefix) !== 0) return;
   const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
   if(message.content.indexOf(guildConf.prefix) !== 0) return;
 
@@ -121,7 +120,7 @@ client.on("message", async message => {
   if (!command) return;
 
   try {
-    command.execute(client, message, args);
+    command.execute(client, message, args, guildConf);
   } catch (error) {
     console.error(error);
     message.reply('There was an error trying to execute that command!');
