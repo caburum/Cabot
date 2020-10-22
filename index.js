@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const website = require('./functions/website.js');
+//const website = require('./functions/website.js');
 const data = require("./botdata/about.json");
 
 // Command Handler
@@ -14,6 +14,10 @@ for (const file of commandFiles) {
 	// set a new item in the Collection
 	// with the key as the command name and the value as the exported module
 	client.commands.set(command.name, command);
+}
+
+function keepAlive(){
+  app.listen(3000, ()=>{console.log("Server is Ready!")});
 }
 
 // Enmaps
@@ -43,7 +47,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   console.log(`Cabot has started, with ${client.users.cache.size} total users, in ${client.channels.cache.size} total channels of ${client.guilds.cache.size} guilds`);
 
-  website();
+  keepAlive();
 
   // Shows how many servers bot is on
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
@@ -128,3 +132,38 @@ client.on("message", async message => {
 });
 
 client.login(process.env.token);
+
+// API
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/website/index.html');
+});
+
+app.get('/api', function(req, res) {
+  res.json({"guilds": client.guilds.cache.size, "channels": client.channels.cache.size, "users": client.users.cache.size, "uptime": client.uptime});
+});
+
+app.get('/api/guilds', function(req, res) {
+  res.send(`${client.guilds.cache.size}`);
+});
+
+app.get('/api/channels', function(req, res) {
+  res.send(`${client.channels.cache.size}`);
+});
+
+app.get('/api/users', function(req, res) {
+  res.send(`${client.users.cache.size}`);
+});
+
+app.get('/api/uptime', function(req, res) {
+  res.send(`${client.uptime}`);
+});
+
+// 404
+app.use(function (req, res, next) {
+  res.status(404).sendFile(__dirname + '/website/404.html')
+})
+
+app.listen();
