@@ -4,7 +4,7 @@ module.exports = {
 	name: 'ban',
 	description: 'Bans a user from the server with a reason and logs it',
   usage: '[user mention] [reason]',
-  aliases: [],
+  aliases: ['block'],
   perms: 'Ban Members',
 	async execute(client, message, args, guildConf) {
 		if (!message.member.hasPermission("BAN_MEMBERS")) return message.reply("Permission Denied.");

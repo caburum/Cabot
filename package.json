@@ -4,6 +4,7 @@
   "description": "A simple, but powerful Discord bot",
   "main": "index.js",
   "dependencies": {
+    "dblapi.js": "^2.4.1",
     "discord.js": "^12.2.0",
     "enmap": "^5.8.0",
     "express": "^4.17.1"

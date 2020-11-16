@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+const DBL = require("dblapi.js");
+const dbl = new DBL(process.env.dblkey, client);
+
 //const website = require('./functions/website.js');
 const data = require("./botdata/about.json");
 
@@ -60,6 +63,11 @@ client.on('ready', () => {
     }
   });
   //client.user.setActivity(`on ${client.guilds.size} server${s}`);
+
+  dbl.postStats(client.guilds.cache.size);
+  setInterval(() => {
+    dbl.postStats(client.guilds.cache.size);
+  }, 1800000);
 });
 
 client.on("guildCreate", guild => {
