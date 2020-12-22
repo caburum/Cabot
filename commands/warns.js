@@ -1,11 +1,14 @@
+const config = require("../botdata/config.json");
+
 module.exports = {
 	name: 'warns',
 	description: 'Shows warnings for a user',
-  usage: '[user mention]',
+  usage: '<@user>',
   aliases: ['punishments'],
-  perms: 'Manage Messages',
+  category: 'MODERATION',
+  perms: 'MANAGE_MESSAGES',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Permission Denied.");
+		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.denyEmoji);
 
     const warns = [];
 

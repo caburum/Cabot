@@ -1,11 +1,14 @@
+const config = require("../botdata/config.json");
+
 module.exports = {
 	name: 'reload',
 	description: 'Reloads a command',
   usage: '<command>',
   aliases: ['latency'],
-  perms: 'Manage Guild',
+  category: 'CORE',
+  perms: 'OWNER',
 	async execute(client, message, args, guildConf) {
-    if (!message.member.hasPermission("MANAGE_GUILD")) return message.reply("Permission Denied.");
+    if (message.member.id != config.owner) return message.react(config.denyEmoji);
     
 		if (!args.length) return message.reply(`You didn't pass any command to reload!`);
     const commandName = args[0].toLowerCase();
@@ -21,6 +24,6 @@ module.exports = {
       console.error(error);
       message.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
     }
-    message.react('✅');
+    message.react(config.successEmoji);
 	},
 };

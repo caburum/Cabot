@@ -1,13 +1,14 @@
 const log = require('../functions/log.js');
+const config = require("../botdata/config.json");
 
 module.exports = {
 	name: 'warn',
 	description: 'Warns a member with a reason and logs it',
-  usage: '[user mention] [reason]',
-  aliases: [],
-  perms: 'Manage Messages',
+  usage: '<@user> <reason>',
+  category: 'MODERATION',
+  perms: 'MANAGE_MESSAGES',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Permission Denied.");
+		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.denyEmoji);
 
     let towarn = message.mentions.members.first();
     if(!towarn)

@@ -1,8 +1,11 @@
+const config = require("../botdata/config.json");
+
 module.exports = {
 	name: 'help',
 	description: 'Lists all commands or info about a specific command.',
 	aliases: ['commands', 'cmds'],
 	usage: '<command name>',
+  category: 'CORE',
 	execute(client, message, args, guildConf) {
 		let prefix = guildConf.prefix;
     const data = [];
@@ -28,7 +31,7 @@ module.exports = {
     const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
     if (!command) {
-      return message.reply('that\'s not a valid command!');
+      return message.react(config.errorEmoji);
     }
 
     data.push(`**Name:** ${command.name}`);
@@ -37,6 +40,8 @@ module.exports = {
     if (command.description) data.push(`**Description:** ${command.description}`);
     if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
     if (command.perms) data.push(`**Perms:** ${command.perms}`);
+    if (command.info) data.push(`**Additional Info:** ${command.info}`);
+    if (command.category) data.push(`**Category:** ${command.category}`);
 
     //data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 

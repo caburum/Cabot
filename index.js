@@ -5,7 +5,7 @@ const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.dblkey, client);
 
 //const website = require('./functions/website.js');
-const data = require("./botdata/about.json");
+const config = require("./botdata/config.json");
 
 // Command Handler
 const fs = require('fs');
@@ -14,7 +14,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 
-	// set a new item in the Collection
+	// Set a new item in the Collection
 	// with the key as the command name and the value as the exported module
 	client.commands.set(command.name, command);
 }
@@ -59,11 +59,11 @@ client.on('ready', () => {
     game: {
       name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
-      url: data.url
+      url: config.url
     }
   });
-  //client.user.setActivity(`on ${client.guilds.size} server${s}`);
 
+  // Posts statustics to Discord Bot List
   dbl.postStats(client.guilds.cache.size);
   setInterval(() => {
     dbl.postStats(client.guilds.cache.size);
@@ -79,7 +79,7 @@ client.on("guildCreate", guild => {
     game: {
       name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
-      url: data.url
+      url: config.url
     }
   });
 });
@@ -93,22 +93,27 @@ client.on("guildDelete", guild => {
     game: {
       name: `${client.guilds.cache.size} server${s}`,
       type: "WATCHING",
-      url: data.url
+      url: config.url
     }
   });
 });
 
 client.on("message", async message => {
-  // Np botception
+  // No botception
   if(!message.guild || message.author.bot) return;
-  
-  /*if(message.mentions.has(client.user)) {
-    message.channel.send('Prefix:' + config.prefix);
-    return;
-  }*/
+
+  // Get the guild's specific prefix
+  const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
+
+  // Sends the prefix if you mention the bot
+  if (message.mentions.members.first()) {
+    if (message.mentions.members.first().id === client.user.id) {
+      message.channel.send('Prefix: ' + guildConf.prefix);
+      return;
+    }
+  }
 
   // Ignore any message that does not start with prefix
-  const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
   if(message.content.indexOf(guildConf.prefix) !== 0) return;
 
   // Separate command name and arguments for the command
@@ -127,10 +132,12 @@ client.on("message", async message => {
   client.user.setStatus('online');
   idleFun();
 
+  // Checks if the command is valid or an alias
   const command = client.commands.get(commandName)
     || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
   if (!command) return;
 
+  // Runs the command
   try {
     command.execute(client, message, args, guildConf);
   } catch (error) {
@@ -141,7 +148,7 @@ client.on("message", async message => {
 
 client.login(process.env.token);
 
-// API
+// Website
 var express = require('express');
 var app = express();
 
@@ -149,6 +156,7 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/website/index.html');
 });
 
+// API
 app.get('/api', function(req, res) {
   res.json({"guilds": client.guilds.cache.size, "channels": client.channels.cache.size, "users": client.users.cache.size, "uptime": client.uptime});
 });

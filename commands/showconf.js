@@ -1,11 +1,14 @@
+const config = require("../botdata/config.json");
+
 module.exports = {
 	name: 'showconf',
 	description: 'Views the server\'s  configuration',
-  usage: '[setting] [value]',
+  usage: '<setting>',
   aliases: ['viewconf', 'viewsettings'],
-  perms: 'Manage Guild',
+  category: 'ADMIN',
+  perms: 'MANAGE_GUILD',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_GUILD")) return message.reply("Permission Denied.");
+		if (!message.member.hasPermission("MANAGE_GUILD")) return message.react(config.denyEmoji);
     
     let configProps = Object.keys(guildConf).map(prop => {
       return `${prop}: ${guildConf[prop]}`;
