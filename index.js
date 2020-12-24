@@ -5,7 +5,7 @@ const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.dblkey, client);
 
 //const website = require('./functions/website.js');
-const config = require("./botdata/config.json");
+const config = require("./config.json");
 
 // Command Handler
 const fs = require('fs');

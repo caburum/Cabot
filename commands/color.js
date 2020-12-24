@@ -1,5 +1,5 @@
 const {MessageEmbed} = require('discord.js');
-const config = require("../botdata/config.json");
+const config = require("../config.json");
 
 function hexToDec(hexString){
   return parseInt(hexString, 16);

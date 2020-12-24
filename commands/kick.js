@@ -1,5 +1,5 @@
 const log = require('../functions/log.js');
-const config = require("../botdata/config.json");
+const config = require("../config.json");
 
 module.exports = {
 	name: 'kick',

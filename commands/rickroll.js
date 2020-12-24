@@ -1,4 +1,4 @@
-const config = require("../botdata/config.json");
+const config = require("../config.json");
 const sleep = require("../functions/sleep.js");
 
 const rickroll = [
