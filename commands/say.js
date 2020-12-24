@@ -8,7 +8,7 @@ module.exports = {
   category: 'FUN',
   perms: 'MANAGE_MESSAGES',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.denyEmoji);
+		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.emoji.deny);
 
     const sayMessage = args.join(" "); 
     message.delete().catch(O_o=>{}); 

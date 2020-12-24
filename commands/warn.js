@@ -8,7 +8,7 @@ module.exports = {
   category: 'MODERATION',
   perms: 'MANAGE_MESSAGES',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.denyEmoji);
+		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.emoji.deny);
 
     let towarn = message.mentions.members.first();
     if(!towarn)

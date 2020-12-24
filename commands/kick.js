@@ -8,7 +8,7 @@ module.exports = {
   perms: 'KICK_MEMBERS',
   category: 'MODERATION',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("KICK_MEMBERS")) return message.react(config.denyEmoji);
+		if (!message.member.hasPermission("KICK_MEMBERS")) return message.react(config.emoji.deny);
 
     let tokick = message.mentions.members.first();
     if(!tokick)

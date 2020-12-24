@@ -9,7 +9,7 @@ module.exports = {
   perms: 'BAN_MEMBERS',
   category: 'MODERATION',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("BAN_MEMBERS")) return message.react(config.denyEmoji);
+		if (!message.member.hasPermission("BAN_MEMBERS")) return message.react(config.emoji.deny);
     
     let toban = message.mentions.members.first();
 

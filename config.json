@@ -3,8 +3,10 @@
   "url": "https://cabot.calum.gq",
   "color": "2A8B9D",
   "version": "1.2.1",
-  "errorEmoji": "❌",
-  "waitingEmoji": "⏳",
-  "successEmoji": "✅",
-  "denyEmoji": "🚫"
+  "emoji": {
+    "error": "❌",
+    "waiting": "⏳",
+    "success": "✅",
+    "deny": "🚫"
+  }
 }

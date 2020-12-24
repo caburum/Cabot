@@ -71,7 +71,7 @@ module.exports = {
 
       message.channel.send(embed);
     } else {
-      message.react(config.errorEmoji);
+      message.react(config.emoji.error);
     }
 	},
 };

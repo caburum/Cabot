@@ -49,7 +49,7 @@ module.exports = {
     const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
     if (!command) {
-      return message.react(config.errorEmoji);
+      return message.react(config.emoji.error);
     }
 
     let embed = new MessageEmbed()

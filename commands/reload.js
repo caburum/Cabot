@@ -8,7 +8,7 @@ module.exports = {
   category: 'CORE',
   perms: 'OWNER',
 	async execute(client, message, args, guildConf) {
-    if (message.member.id != config.owner) return message.react(config.denyEmoji);
+    if (message.member.id != config.owner) return message.react(config.emoji.deny);
     
 		if (!args.length) return message.reply(`You didn't pass any command to reload!`);
     const commandName = args[0].toLowerCase();

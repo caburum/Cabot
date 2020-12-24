@@ -8,7 +8,7 @@ module.exports = {
   category: 'ADMIN',
   perms: 'MANAGE_GUILD',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_GUILD")) return message.react(config.denyEmoji);
+		if (!message.member.hasPermission("MANAGE_GUILD")) return message.react(config.emoji.deny);
 
     // Let's get our key and value from the arguments. 
     // This is array destructuring, by the way. 
