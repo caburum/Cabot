@@ -5,7 +5,7 @@ module.exports = {
 	name: 'kick',
 	description: 'Kicks a user from the server with a reason and logs it',
   usage: '<@user> <reason>',
-  perms: 'Kick Members',
+  perms: 'KICK_MEMBERS',
   category: 'MODERATION',
 	async execute(client, message, args, guildConf) {
 		if (!message.member.hasPermission("KICK_MEMBERS")) return message.react(config.denyEmoji);

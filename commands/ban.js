@@ -6,7 +6,7 @@ module.exports = {
 	description: 'Bans a user from the server with a reason and logs it',
   usage: '<@user> <reason>',
   aliases: ['block'],
-  perms: 'Ban Members',
+  perms: 'BAN_MEMBERS',
   category: 'MODERATION',
 	async execute(client, message, args, guildConf) {
 		if (!message.member.hasPermission("BAN_MEMBERS")) return message.react(config.denyEmoji);

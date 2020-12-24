@@ -1,3 +1,4 @@
+const {MessageEmbed} = require('discord.js');
 const config = require("../botdata/config.json");
 
 module.exports = {
@@ -6,14 +7,31 @@ module.exports = {
 	aliases: ['commands', 'cmds'],
 	usage: '<command name>',
   category: 'CORE',
-	execute(client, message, args, guildConf) {
+	async execute(client, message, args, guildConf) {
 		let prefix = guildConf.prefix;
     const data = [];
     const {commands} = message.client;
 
     if (!args.length) {
-      data.push('Commands');
-      data.push(commands.map(command => command.name).join(', '));
+      data.push('Allowed Commands');
+      let names = [];
+      await commands.forEach(command => {
+        let allowed = true;
+        if (command.perms) {
+          allowed = false;
+          if (command.perms === 'OWNER') {
+            if (message.member.id === config.owner) {allowed = true} // Owner only commands
+          } else if (command.perms === 'HIDDEN') {
+            allowed = false;
+          } else {
+            if (message.member.hasPermission(command.perms)) {allowed = true} // If the user has the permissions
+          }
+        }
+        if (allowed) {
+          names.push(command.name);
+        }
+      });
+      data.push(names.join(', '));
       data.push(`\nYou can send \`${prefix}help <command name>\` to get info on a specific command!`);
 
       return message.author.send(data, { split: true })
@@ -34,18 +52,45 @@ module.exports = {
       return message.react(config.errorEmoji);
     }
 
-    data.push(`**Name:** ${command.name}`);
+    let embed = new MessageEmbed()
+      .setColor(config.color)
+      .setAuthor('Cabot Help', client.user.avatarURL(), config.url)
+      .setDescription('All `<args>` are required but all `[args]` are optional.')
+      .addFields(
+        {name: 'Name', value: command.name, inline: true}
+      )
 
-    if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-    if (command.description) data.push(`**Description:** ${command.description}`);
-    if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
-    if (command.perms) data.push(`**Perms:** ${command.perms}`);
-    if (command.info) data.push(`**Additional Info:** ${command.info}`);
-    if (command.category) data.push(`**Category:** ${command.category}`);
+    if (command.category) {embed.addFields(
+      {name: 'Category', value: command.category, inline: true}
+    )};
 
-    //data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
+    if (command.perms) {embed.addFields(
+      {name: 'Permissions', value: command.perms, inline: true}
+    )};
 
-    message.channel.send(data, { split: true });
+    if (command.description) {embed.addFields(
+      {name: 'Description', value: command.description}
+    )};
+
+    if (command.aliases) {embed.addFields(
+      {name: 'Aliases', value: command.aliases.join(', ')}
+    )};
+
+    let usage = prefix + command.name;
+    if (command.usage) {usage = usage + ' ' + command.usage;}
+    embed.addFields(
+      {name: 'Usage', value: '`' + usage + '`'}
+    );
+
+    if (command.info) {embed.addFields(
+      {name: 'Additional Info', value: command.info}
+    )};
+
+    /*embed.addFields(
+      {name: 'Cooldown', value: `${command.cooldown || 3} second(s)`}
+    );*/
+
+    message.channel.send(embed);
 
 	},
 };
