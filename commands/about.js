@@ -25,7 +25,7 @@ module.exports = {
     }
 
     let embed = new MessageEmbed()
-      .setColor(config.color)
+      .setColor(config.color.default)
       .setAuthor('About Cabot', client.user.avatarURL(), config.url)
       .addFields(
         {name: 'Author', value: `<@${config.owner}>`, inline: true},

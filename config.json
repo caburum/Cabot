@@ -1,7 +1,14 @@
 {
   "owner": "413455502480244747",
   "url": "https://cabot.ccreativecnd.repl.co",
-  "color": "2A8B9D",
+  "color": {
+    "default": "2A8B9D",
+    "red": "CC2124",
+    "green": "46AF4A",
+    "dark": "23272A",
+    "medium": "2C2F33",
+    "light": "DCDCDC"
+  },
   "version": "1.2.1",
   "emoji": {
     "error": "❌",

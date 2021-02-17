@@ -53,7 +53,7 @@ module.exports = {
     }
 
     let embed = new MessageEmbed()
-      .setColor(config.color)
+      .setColor(config.color.default)
       .setAuthor('Cabot Help', client.user.avatarURL(), config.url)
       .setDescription('All `<args>` are required but all `[args]` are optional.')
       .addFields(
