@@ -12,9 +12,10 @@
   "version": "1.2.1",
   "emoji": {
     "error": "❌",
-    "waiting": "⏳",
+    "wait": "⏳",
     "success": "✅",
     "deny": "🚫",
-    "warning": "⚠️"
+    "warn": "⚠️",
+    "exclemation": "❗"
   }
 }
