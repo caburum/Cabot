@@ -1,12 +1,13 @@
 {
   "owner": "413455502480244747",
-  "url": "https://cabot.calum.gq",
+  "url": "https://cabot.ccreativecnd.repl.co",
   "color": "2A8B9D",
   "version": "1.2.1",
   "emoji": {
     "error": "❌",
     "waiting": "⏳",
     "success": "✅",
-    "deny": "🚫"
+    "deny": "🚫",
+    "warning": "⚠️"
   }
 }
