@@ -1,5 +1,5 @@
 const log = require('../functions/log.js');
-const config = require("../config.json");
+const config = require('../config.json');
 
 module.exports = {
 	name: 'kick',
@@ -8,16 +8,16 @@ module.exports = {
   perms: 'KICK_MEMBERS',
   category: 'MODERATION',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("KICK_MEMBERS")) return message.react(config.emoji.deny);
+		if (!message.member.hasPermission('KICK_MEMBERS')) return message.react(config.emoji.deny);
 
     let tokick = message.mentions.members.first();
     if(!tokick)
-      return message.reply("Please mention a valid member of this server");
+      return message.reply('Please mention a valid member of this server');
     if(!tokick.kickable) 
-      return message.reply("I cannot kick this user! Do they have a higher role than me? Do I have kick permissions?");
+      return message.reply('I cannot kick this user! Do they have a higher role than me? Do I have kick permissions?');
     
     let reason = args.slice(1).join(' ');
-    if (!reason) return message.reply("Please indicate a reason for the kick.");
+    if (!reason) return message.reply('Please indicate a reason for the kick.');
     
     await tokick.send(`You have been kicked from ${message.guild.name} by ${message.author} because: ${reason}`);
 

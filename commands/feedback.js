@@ -1,5 +1,5 @@
 const {WebhookClient, MessageEmbed} = require('discord.js');
-const config = require("../config.json");
+const config = require('../config.json');
 
 module.exports = {
 	name: 'feedback',
@@ -9,7 +9,7 @@ module.exports = {
 	async execute(client, message, args, guildConf) {
     const webhookClient = new WebhookClient(process.env.feedbackID, process.env.feedbackToken);
 
-    let feedback = args.join(" ");
+    let feedback = args.join(' ');
     let user = message.author.id;
 
     if (!feedback) return message.react(config.emoji.error);

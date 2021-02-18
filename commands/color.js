@@ -1,16 +1,16 @@
 const {MessageEmbed} = require('discord.js');
-const config = require("../config.json");
+const config = require('../config.json');
 
 function hexToDec(hexString){
   return parseInt(hexString, 16);
 }
 
 function rgbToHex(r, g, b) {
-  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
 function hexToRgb(hex) {
-  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  // Expand shorthand form (e.g. #03F) to full form (e.g. #0033FF)
   let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, function(m, r, g, b) {
     return r + r + g + g + b + b;
@@ -25,7 +25,7 @@ function hexToRgb(hex) {
 }
 
 function isHexColor (hex) {
-  if (hex.charAt(0) === "#") {
+  if (hex.charAt(0) === '#') {
     hex = hex.substring(1);
   }
   return typeof hex === 'string'
@@ -38,7 +38,7 @@ module.exports = {
 	description: 'Shows information about a color',
   usage: '<hex color code>',
   info: 'The # before the color code is not required, but will work',
-  aliases: ['hex'],
+  aliases: ['hex', 'colour'],
   category: 'UTILITIES',
 	execute(client, message, args, guildConf) {
     let color = false;
@@ -46,7 +46,7 @@ module.exports = {
     if (isHexColor(args[0])) {
       color = true;
       hex = args[0].toUpperCase();
-      if (hex.charAt(0) === "#") {
+      if (hex.charAt(0) === '#') {
         hex = hex.substring(1);
       }
       if (hex.length === 3) {

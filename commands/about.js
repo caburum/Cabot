@@ -1,5 +1,6 @@
 const {MessageEmbed} = require('discord.js');
-const config = require("../config.json");
+const config = require('../config.json');
+const pjson = require('../package.json');
 
 module.exports = {
 	name: 'about',
@@ -29,10 +30,18 @@ module.exports = {
       .setAuthor('About Cabot', client.user.avatarURL(), config.url)
       .addFields(
         {name: 'Author', value: `<@${config.owner}>`, inline: true},
-        {name: 'Version', value: config.version, inline: true},
+        {name: 'Version', value: pjson.version, inline: true},
         {name: 'Prefix', value: guildConf.prefix, inline: true},
         {name: 'Uptime', value: uptime, inline: true},
       )
+
+    if (args.includes('stats')) {
+      embed.addFields(
+        {name: 'Users', value: client.users.cache.size, inline: true},
+        {name: 'Guilds', value: client.guilds.cache.size, inline: true},
+        {name: 'Channels', value: client.channels.cache.size, inline: true},
+      )
+    }
 
     message.channel.send(embed);
 	},

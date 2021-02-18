@@ -1,5 +1,5 @@
 const log = require('../functions/log.js');
-const config = require("../config.json");
+const config = require('../config.json');
 
 module.exports = {
 	name: 'warn',
@@ -8,14 +8,14 @@ module.exports = {
   category: 'MODERATION',
   perms: 'MANAGE_MESSAGES',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.react(config.emoji.deny);
+		if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.react(config.emoji.deny);
 
     let towarn = message.mentions.members.first();
     if(!towarn)
-      return message.reply("Please mention a valid member of this server");
+      return message.reply('Please mention a valid member of this server');
     
     let reason = args.slice(1).join(' ');
-    if (!reason) return message.reply("Please indicate a reason for the warn.");
+    if (!reason) return message.reply('Please indicate a reason for the warn.');
 
     const newActionId = client.modActions.autonum;
     client.modActions.set(newActionId, {

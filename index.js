@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const DBL = require("dblapi.js");
-const dbl = new DBL(process.env.dblkey, client);
+const Topgg = require('@top-gg/sdk');
+const topgg = new Topgg.Api(process.env.topggtoken);
 
 //const website = require('./functions/website.js');
-const config = require("./config.json");
+const config = require('./config.json');
 
 // Command Handler
 const fs = require('fs');
@@ -20,20 +20,20 @@ for (const file of commandFiles) {
 }
 
 function keepAlive(){
-  app.listen(3000, ()=>{console.log("Server is Ready!")});
+  app.listen(3000, ()=>{console.log('Server is Ready!')});
 }
 
 // Enmaps
 const Enmap = require('enmap');
 client.settings = new Enmap({
-  name: "settings",
+  name: 'settings',
   fetchAll: false,
   autoFetch: true,
   cloneLevel: 'deep'
 });
 const defaultSettings = {	
-  prefix: "$",	
-  logchannel: "mod-logs"
+  prefix: '$',	
+  logchannel: 'mod-logs'
 }
 client.modActions = new Enmap({
   name: 'actions'
@@ -55,50 +55,51 @@ client.on('ready', () => {
   // Shows how many servers bot is on
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
   client.user.setPresence({
-    status: "idle",
+    status: 'idle',
     game: {
       name: `${client.guilds.cache.size} server${s}`,
-      type: "WATCHING",
+      type: 'WATCHING',
       url: config.url
     }
   });
 
-  // Posts statustics to Discord Bot List
-  dbl.postStats(client.guilds.cache.size);
+  // Posts statistics to Top.gg
   setInterval(() => {
-    dbl.postStats(client.guilds.cache.size);
-  }, 1800000);
+    topgg.postStats({
+      serverCount: client.guilds.cache.size
+    })
+  }, 1800000) // post every 30 minutes
 });
 
-client.on("guildCreate", guild => {
+client.on('guildCreate', guild => {
   // This event triggers when the bot joins a guild.
   console.log(`Joined ${guild.name} (id: ${guild.id}) with ${guild.memberCount} members!`);
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
   client.user.setPresence({
-    status: "idle",
+    status: 'idle',
     game: {
       name: `${client.guilds.cache.size} server${s}`,
-      type: "WATCHING",
+      type: 'WATCHING',
       url: config.url
     }
   });
 });
 
-client.on("guildDelete", guild => {
+client.on('guildDelete', guild => {
   // This event triggers when the bot is removed from a guild.
   console.log(`Left ${guild.name} (id: ${guild.id})`);
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
   client.user.setPresence({
-    status: "idle",
+    status: 'idle',
     game: {
       name: `${client.guilds.cache.size} server${s}`,
-      type: "WATCHING",
+      type: 'WATCHING',
       url: config.url
     }
   });
 });
 
-client.on("message", async message => {
+client.on('message', async message => {
   // No botception
   if(!message.guild || message.author.bot) return;
 
@@ -158,23 +159,23 @@ app.get('/', function(req, res) {
 
 // API
 app.get('/api', function(req, res) {
-  res.json({"guilds": client.guilds.cache.size, "channels": client.channels.cache.size, "users": client.users.cache.size, "uptime": client.uptime});
+  res.json({'guilds': client.guilds.cache.size, 'channels': client.channels.cache.size, 'users': client.users.cache.size, 'uptime': client.uptime});
 });
 
 app.get('/api/guilds', function(req, res) {
-  res.send(`${client.guilds.cache.size}`);
+  res.send(client.guilds.cache.size);
 });
 
 app.get('/api/channels', function(req, res) {
-  res.send(`${client.channels.cache.size}`);
+  res.send(client.channels.cache.size);
 });
 
 app.get('/api/users', function(req, res) {
-  res.send(`${client.users.cache.size}`);
+  res.send(client.users.cache.size);
 });
 
 app.get('/api/uptime', function(req, res) {
-  res.send(`${client.uptime}`);
+  res.send(client.uptime);
 });
 
 // 404

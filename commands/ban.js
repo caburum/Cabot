@@ -1,5 +1,5 @@
 const log = require('../functions/log.js');
-const config = require("../config.json");
+const config = require('../config.json');
 
 module.exports = {
 	name: 'ban',
@@ -9,15 +9,15 @@ module.exports = {
   perms: 'BAN_MEMBERS',
   category: 'MODERATION',
 	async execute(client, message, args, guildConf) {
-		if (!message.member.hasPermission("BAN_MEMBERS")) return message.react(config.emoji.deny);
+		if (!message.member.hasPermission('BAN_MEMBERS')) return message.react(config.emoji.deny);
     
     let toban = message.mentions.members.first();
 
-    if (!toban) return message.reply("Please mention a valid member of this server.");
-    if(!toban.bannable) return message.reply("I cannot ban this user! Do they have a higher role than me? Do I have ban permissions?");
+    if (!toban) return message.reply('Please mention a valid member of this server.');
+    if(!toban.bannable) return message.reply('I cannot ban this user! Do they have a higher role than me? Do I have ban permissions?');
     
     let reason = args.slice(1).join(' ');
-    if (!reason) return message.reply("Please indicate a reason for the ban.");
+    if (!reason) return message.reply('Please indicate a reason for the ban.');
 
     await toban.send(`You have been banned from ${message.guild.name} by ${message.author} because: ${reason}`);
     
