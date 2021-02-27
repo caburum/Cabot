@@ -17,7 +17,7 @@ module.exports = {
   category: 'FUN',
   perms: 'OWNER',
 	async execute(client, message, args, guildConf) {
-	  if (message.member.id != config.owner) return;
+	  if (message.member.id != config.owner) return message.react(config.emoji.deny);
     message.delete().catch(O_o=>{});
     message.guild.members.cache.get(client.user.id).setNickname('Rick Astley');
     await sleep(100);
