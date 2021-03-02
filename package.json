@@ -16,13 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CCreativeCND/Cabot.git"
+    "url": "git+https://github.com/caburum/Cabot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CCreativeCND/Cabot/issues"
+    "url": "https://github.com/caburum/Cabot/issues"
   },
-  "homepage": "https://cabot.calum.gq"
+  "homepage": "https://cabot.ccreativecnd.repl.co"
 }
