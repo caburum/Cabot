@@ -7,7 +7,7 @@
     "@top-gg/sdk": "^3.0.7",
     "beautify": "0.0.8",
     "discord.js": "^12.5.1",
-    "enmap": "^5.8.2",
+    "enmap": "^5.8.4",
     "express": "^4.17.1"
   },
   "devDependencies": {},
