@@ -1,5 +1,5 @@
 function randomInt(r) {
-  return Math.floor((Math.random() * r))
+	return Math.floor((Math.random() * r))
 }
 
-module.exports = randomInt
+module.exports = randomInt;
