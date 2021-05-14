@@ -4,7 +4,7 @@ module.exports = {
 	name: 'showconf',
 	description: 'Views the server\'s  configuration',
   usage: '<setting>',
-  aliases: ['viewconf', 'viewsettings'],
+  aliases: ['getconf', 'viewconf', 'viewsettings'],
   category: 'ADMIN',
   perms: 'MANAGE_GUILD',
 	async execute(client, message, args, guildConf) {

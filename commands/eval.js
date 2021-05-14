@@ -2,6 +2,15 @@ const Discord = require('discord.js');
 const config = require('../config.json');
 const Beautify = require('beautify');
 
+function clean(input) { // Ensures the string is clean and will not cause issues
+	return input
+		.replace(process.env.token, 'Mjlx3zamasNOsd23fdz1sda23wO2Yw.TOKENz.emVjV4lcSzbdsjlz4U') // Fake token
+		.replace(/`/g, '`' + String.fromCharCode(8203))
+		.replace(/@/g, '@' + String.fromCharCode(8203));
+}
+
+const life = 42;
+
 module.exports = {
 	name: 'eval',
 	description: 'Evaluates a code chunk',
@@ -13,12 +22,6 @@ module.exports = {
     if (!args) return message.react(config.emoji.error);
 
     try {
-      const life = 42;
-
-      if (args.join(' ').toLowerCase().includes('token')) {
-        return;
-      }
-
       const toEval = args.join(' ');
       const evaluated = eval(toEval);
 
@@ -29,8 +32,10 @@ module.exports = {
       if (typeof(evaluated) == 'object') {output = Beautify(JSON.stringify(evaluated), {format: 'json'}); format = 'json';}
       else {output = evaluated; format = 'js';}
 
+			output = clean(output);
+
       let embed = new Discord.MessageEmbed()
-        .addField('**To Evaluate**', `\`\`\`js\n${Beautify(args.join(' '), {format: 'js'})}\`\`\``)
+        .addField('**To Evaluate**', `\`\`\`js\n${Beautify(clean(args.join(' ')), {format: 'js'})}\`\`\``)
         .addField('**Result**', '```' + format + '\n' + output + '```')
         .addField('**Type**', typeof(evaluated))
         .setTimestamp()

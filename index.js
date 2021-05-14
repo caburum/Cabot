@@ -20,7 +20,7 @@ for (const file of commandFiles) {
 }
 
 function keepAlive(){
-  app.listen(3000, ()=>{console.log('Server is Ready!')});
+  app.listen(3000, ()=>{console.log('Server is ready!')});
 }
 
 // Enmaps
@@ -56,7 +56,7 @@ client.on('ready', () => {
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
   client.user.setPresence({
     status: 'idle',
-    game: {
+    activity: {
       name: `${client.guilds.cache.size} server${s}`,
       type: 'WATCHING',
       url: config.url
@@ -77,7 +77,7 @@ client.on('guildCreate', guild => {
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
   client.user.setPresence({
     status: 'idle',
-    game: {
+    activity: {
       name: `${client.guilds.cache.size} server${s}`,
       type: 'WATCHING',
       url: config.url
@@ -91,7 +91,7 @@ client.on('guildDelete', guild => {
   if (client.guilds.size == 1) {s = ''} else {s = 's'}
   client.user.setPresence({
     status: 'idle',
-    game: {
+    activity: {
       name: `${client.guilds.cache.size} server${s}`,
       type: 'WATCHING',
       url: config.url
