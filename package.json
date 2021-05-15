@@ -6,7 +6,7 @@
 	"dependencies": {
 		"@top-gg/sdk": "^3.0.7",
 		"beautify": "0.0.8",
-		"discord.js": "^12.5.1",
+		"discord.js": "^12.5.3",
 		"enmap": "^5.8.2",
 		"express": "^4.17.1"
 	},
