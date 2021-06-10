@@ -4,7 +4,7 @@
 	"description": "A simple, but powerful Discord bot",
 	"main": "index.js",
 	"dependencies": {
-		"@top-gg/sdk": "^3.0.7",
+		"@top-gg/sdk": "^3.1.1",
 		"beautify": "0.0.8",
 		"discord.js": "^12.5.1",
 		"enmap": "^5.8.2",
