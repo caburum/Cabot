@@ -8,6 +8,7 @@ const life = 42;
 class EvalCommand extends Command {
 	description = 'Evaluates JavaScript code';
 	aliases = ['parse', 'exec'];
+	usage = '<JS>';
 	slashCommand = false;
 
 	static get deps() {
