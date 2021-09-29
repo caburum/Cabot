@@ -11,6 +11,10 @@ class AboutCommand extends Command {
 		.addBooleanOption(option =>
 			option.setName('stats')
 				.setDescription('Show bot stats')
+		)
+		.addBooleanOption(option =>
+			option.setName('debug')
+				.setDescription('Show debug info')
 		);
 
 	static get deps() {
@@ -40,6 +44,14 @@ class AboutCommand extends Command {
 				{name: 'Users', value: this.client.users.cache.size.toString(), inline: true},
 				{name: 'Guilds', value: this.client.guilds.cache.size.toString(), inline: true},
 				{name: 'Channels', value: this.client.channels.cache.size.toString(), inline: true},
+			)
+		}
+
+		if (args.includes('debug')) {
+			embed.addFields(
+				{name: 'Environment', value: this.config.environment.toUpperCase(), inline: true},
+				{name: 'Plugins', value: this.bot._loadedPlugins.length.toString(), inline: true},
+				{name: 'Commands', value: this.bot.commandHandler.commands.size.toString(), inline: true}
 			)
 		}
 

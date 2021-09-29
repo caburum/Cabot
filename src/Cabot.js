@@ -36,7 +36,7 @@ class Cabot {
 			})
 		});
 
-		this.isDevmode = this.config.enviroment === 'development';
+		this.isDevmode = this.config.environment.toUpperCase().startsWith('DEV');
 		this._loggedIn = false;
 		this._plugins = [];
 		this._loadedPlugins = [];
