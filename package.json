@@ -1,18 +1,19 @@
 {
 	"name": "Cabot",
-	"version": "1.2.2",
+	"version": "2.0.0",
 	"description": "A simple, but powerful Discord bot",
 	"main": "index.js",
 	"dependencies": {
-		"@top-gg/sdk": "^3.0.7",
-		"beautify": "0.0.8",
-		"discord.js": "^12.5.1",
-		"enmap": "^5.8.2",
-		"express": "^4.17.1"
+		"@discordjs/builders": "^0.6.0",
+		"@discordjs/rest": "^0.1.0-canary.0",
+		"@top-gg/sdk": "^3.1.2",
+		"beautify": "^0.0.8",
+		"discord.js": "^13.1.0",
+		"express": "^4.17.1",
+		"humanize-duration": "^3.27.0"
 	},
-	"devDependencies": {},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "node index.js"
 	},
 	"repository": {
 		"type": "git",

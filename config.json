@@ -1,5 +1,24 @@
 {
-	"owner": "413455502480244747",
+	"owners": [
+		"413455502480244747"
+	],
+	"plugins": {
+		"disabled": [
+			"database",
+			"topgg",
+			"website"
+		]
+	},
+	"commands": {
+		"disabled": [
+			"setconf",
+			"showconf"
+		],
+		"disabledCategories": [
+			"moderation",
+			"fun"
+		]
+	},
 	"url": "https://cabot.ccreativecnd.repl.co",
 	"color": {
 		"default": "2A8B9D",
